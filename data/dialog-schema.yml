@@ -1,9 +1,9 @@
-nodes:
+dialog:
 - intent: showMenu
   examples:
   - Show me the menu
   - What do you have?
-  nodes:
+  dialog:
   - intent: debug
     examples:
     - debug  
