@@ -1,0 +1,27 @@
+nodes:
+- intent: showMenu
+  examples:
+  - Show me the menu
+  - What do you have?
+  nodes:
+  - intent: debug
+    examples:
+    - debug  
+
+- intent: showDrinks
+
+- intent: showFood
+
+- intent: lowCalories
+  examples:
+  - What do you have with lowCalories?
+
+- intent: callWaiter
+  examples:
+  - I want to talk to a waiter
+  - Call waiter
+  - Waiter
+
+- intent: help
+  example: examples/help.yml 
+
