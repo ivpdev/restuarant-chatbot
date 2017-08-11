@@ -1,27 +1,24 @@
 dialog:
-- intent: showMenu
-  examples:
-  - Show me the menu
-  - What do you have?
+- intent: ?showMenu
+  action: !showMenu
   dialog:
   - intent: debug
-    examples:
-    - debug  
 
-- intent: showDrinks
+- intent: ?showDrinks # if no responses or actions defined, framework triggers action with the same name as intent (!showDrinks)
 
-- intent: showFood
+- intent: ?showFood
 
-- intent: lowCalories
-  examples:
-  - What do you have with lowCalories?
+- intent: ?lowCalories
 
-- intent: callWaiter
-  examples:
-  - I want to talk to a waiter
-  - Call waiter
-  - Waiter
+- intent: ?callWaiter
 
-- intent: help
-  example: examples/help.yml 
+- intent: ?help
+  responseStrategy: random #or round-robin....
+  response:
+  - It can ask for to show menu or some parts of it
+  - I have mood... No help for you today.
+
+- intent: ?reserveTable
+  type: stepsequence #or normal | slots | ....
+
 
