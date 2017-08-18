@@ -1,0 +1,66 @@
+const fs = require('fs')
+const YAML = require('yamljs')
+const _ = require('lodash')
+
+const rootFolder = '../../data/'
+const file = {
+    dialog: rootFolder + 'dialog-schema.yml',
+    intents: rootFolder + 'intents.yml',
+    entities: rootFolder + 'entities.yml',
+    luisAppTemplate: 'luisAppTemplate.json',
+    luisAppTarget: 'target/luisApp.json' }
+
+const readYaml = (filePath) => YAML.parse(fs.readFileSync(filePath).toString())
+
+//TODO missing files error handling
+
+const extractUntterances = (intentsSource) => {
+    const u = intentsSource
+                .map(intent => {
+                    var examples
+
+                    if (_.isArray(intent.examples)) {
+                        examples = intent.examples }
+                    else if (_.isString(intent.examples)) {
+                        const filePath = rootFolder + intent.examples
+                        examples = readYaml(filePath) }
+                    else {
+                        examples = [] }
+
+                    return examples.map(example => {
+                               return {  text: example, intent: intent.name,
+                                         entities: [] }})})
+
+    const utterances = _.filter(_.flatten(u))
+
+    return utterances }
+
+const compiler = {
+    compile: function(dialogSchema) {
+        const dialog = readYaml(file.dialog)
+        const intents = readYaml(file.intents)
+        const entities = readYaml(file.entities)
+
+        console.log(entities)
+
+        //parses dialog schema and generates JavaScript code for MS Botframework
+        return null },
+
+    compileLuis: function() {
+        const intentsSource = readYaml(file.intents)
+        const entitiesSource = readYaml(file.entities)
+
+        const intentDefinitions = intentsSource.map(intent => { return { name: intent.name }})
+        const utterances = extractUntterances(intentsSource)
+
+        const luisApp = JSON.parse(fs.readFileSync(file.luisAppTemplate).toString())
+        luisApp.intents = intentDefinitions
+        luisApp.utterances = utterances
+
+        console.log(luisApp)
+
+        fs.writeFileSync(file.luisAppTarget, JSON.stringify(luisApp, null, 4), 'utf8')  }}
+
+compiler.compileLuis()
+
+module.exports = compiler;

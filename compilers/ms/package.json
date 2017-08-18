@@ -1,0 +1,18 @@
+{
+  "name": "dml-ms-compiler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "MicrosoftDialogCompiler.js",
+  "scripts": {
+    "start": "node MicrosoftDialogCompiler.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "yamljs": "^0.3.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}

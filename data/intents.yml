@@ -1,30 +1,38 @@
-- intent: ?showMenu
+- name: ?showMenu
   examples:
   - Show me the menu
   - What do you have?
 
-- intent: !debug
+- name: ?debug
   examples:
   - debug
 
-- intent: ?showDrinks
+- name: ?showDrinks
+  examples:
+  - which drinks do you have?
+  - what's for drinks?
+  - show me your drinks
 
-- intent: ?showFood
+- name: ?showFood
+  examples:
+  - which food do you have?
+  - show me your food
+  - whats for food?
 
-- intent: ?lowCalories
+- name: ?lowCalories
   examples:
   - What do you have with lowCalories?
 
-- intent: ?callWaiter
+- name: ?callWaiter
   examples:
   - I want to talk to a waiter
   - Call waiter
   - Waiter
 
-- intent: ?help
+- name: ?help
   examples: examples/help.yml
 
-- intent: ?reserveTable
+- name: ?reserveTable
   examples:
   - I want to reserve a table
   - book place

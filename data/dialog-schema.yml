@@ -1,10 +1,41 @@
+#TODO allow context manipulatiuons?
+#TODO what can be imported from file?
+#   (directly from node: examples, responses, what more? e.g. subdialog?; global import - intents, entities)
+#TODO define jumps logic
+#TODO how to deal with missing functionality?
+#TODO one-show generation? then placeholders for missing functionality. or generate on build => then should be a way to merge generated code
+#TODO reach content (buttons etc)
+
+#### Intents
+# - inline
+# - by name (global imports)
+# - by direct import
+# - one can also define intents locally in the same file (analog to global import)
+# override rules inline > locally defined intents override ones globally imported intents with the same names
+
+#### Dialog
+# includes:
+# - intent (TODO condition, trigger), MS: bot.recognizer
+# - action
+# - responses
+# - subdialogs
+# - type : normal | slots | steps
+# - TODO jumpTo
+# - TODO entities
+
+
+
 dialog:
-- intent: ?showMenu
+- name: showMenuNode
+  intent: ?showMenu
   action: !showMenu
   dialog:
   - intent: debug
+  - responses:
+    - showMenu > debug
 
 - intent: ?showDrinks # if no responses or actions defined, framework triggers action with the same name as intent (!showDrinks)
+  responses: responses/showDrinks.yml
 
 - intent: ?showFood
 
@@ -14,11 +45,30 @@ dialog:
 
 - intent: ?help
   responseStrategy: random #or round-robin....
-  response:
+  responses:
   - It can ask for to show menu or some parts of it
-  - I have mood... No help for you today.
+  - I have bad mood... No help for you today.
+
+- intent:
+    # name: ololo
+    examples:
+    - ololo
+    - alala
+  type: sequential #or normal | slots | ....
+  steps:
+  - step1!
+  - step2.
 
 - intent: ?reserveTable
-  type: stepsequence #or normal | slots | ....
+  type: slots
+  slots:
+  - variable: date
+    type: date
+    prompt: provide a date please
 
+  - variable: personCount
+    type: integer
+    prompt:
+    - how many person?
+    - provide person count please.
 
