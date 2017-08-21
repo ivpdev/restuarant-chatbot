@@ -1,6 +1,6 @@
-let builder = require('botbuilder');
+const builder = require('botbuilder');
 
-let dialog = {
+const dialog = {
     name: 'main',
     trigger: {
         matches: /^hi$/i,

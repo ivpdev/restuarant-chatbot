@@ -1,10 +1,11 @@
-let builder = require('botbuilder');
+const builder = require('botbuilder');
 
-let dialog = {
+const dialog = {
     name: 'help',
+
     trigger: {
-        matches: /^help$/i,
-    },
+        matches: /^help$/i },
+
     steps: [(session) => {
                builder.Prompts.text(session, 'Ololo') },
 
