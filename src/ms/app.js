@@ -19,8 +19,8 @@ server.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
 
-const appId = 'c9f81e49-e216-423f-9410-2f8fa879c96a'
-const subscriptionKey = 'f96572e301d14a6283e3cd8cb38b5b50'
+const appId = process.env.LUIS_APP_ID
+const subscriptionKey = process.env.LUIS_SUBSCRIPTION_KEY
 const luisAppUrl = process.env.LUIS_APP_URL ||
                         'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/' + appId + '?subscription-key=' + subscriptionKey;
 

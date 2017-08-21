@@ -2,3 +2,4 @@
 node_modules
 npm-debug.log
 /compilers/ms/tmp
+setup-env.sh
