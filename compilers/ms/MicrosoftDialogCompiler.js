@@ -1,6 +1,7 @@
 const fs = require('fs')
 const YAML = require('yamljs')
 const _ = require('lodash')
+const DialogNodesProcessor = require('./DialogNodesProcessor')
 
 const rootFolder = '../../data/'
 const file = {
@@ -8,7 +9,9 @@ const file = {
     intents: rootFolder + 'intents.yml',
     entities: rootFolder + 'entities.yml',
     luisAppTemplate: 'luisAppTemplate.json',
-    luisAppTarget: 'target/luisApp.json' }
+    luisAppTarget: 'target/luisApp.json',
+    dialogTargetPrefix: 'target/dialog'
+}
 
 const readYaml = (filePath) => YAML.parse(fs.readFileSync(filePath).toString())
 
@@ -36,7 +39,7 @@ const extractUntterances = (intentsSource) => {
     return utterances }
 
 const compiler = {
-    compile: function(dialogSchema) {
+    compile: (dialogSchema) => {
         const dialog = readYaml(file.dialog)
         const intents = readYaml(file.intents)
         const entities = readYaml(file.entities)
@@ -46,7 +49,7 @@ const compiler = {
         //parses dialog schema and generates JavaScript code for MS Botframework
         return null },
 
-    compileLuis: function() {
+    compileLuis: () => {
         const intentsSource = readYaml(file.intents)
         const entitiesSource = readYaml(file.entities)
 
@@ -59,8 +62,22 @@ const compiler = {
 
         console.log(luisApp)
 
-        fs.writeFileSync(file.luisAppTarget, JSON.stringify(luisApp, null, 4), 'utf8')  }}
+        fs.writeFileSync(file.luisAppTarget, JSON.stringify(luisApp, null, 4), 'utf8')  },
 
-compiler.compileLuis()
+     compileDialog: () => {
+        const dialogSource = readYaml(file.dialog)
+        const dialogs = DialogNodesProcessor.prepareDialogs(dialogSource)
+
+        //console.log(JSON.stringify(dialogs, null, 4))
+
+        dialogs.forEach((dialog) => {
+            const fileName = file.dialogTargetPrefix + dialog.name
+
+            fs.writeFileSync(fileName, JSON.stringify(dialog, null, 4), 'utf8') })
+
+            }
+}
+
+compiler.compileDialog()
 
 module.exports = compiler;
