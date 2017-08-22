@@ -24,7 +24,6 @@
 # - TODO entities
 
 
-
 dialog:
 - name: showMenuNode
   intent: ?showMenu
