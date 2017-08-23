@@ -1,5 +1,3 @@
-
-
 //TODO confidence levels
 export class NluVerdict {
 	intent: string
